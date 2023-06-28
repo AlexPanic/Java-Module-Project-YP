@@ -10,6 +10,7 @@ public class Main {
             }
         }
         Calc calc = new Calc();
+        calc.parseBill();
     }
 
     public static boolean getPeople() {
