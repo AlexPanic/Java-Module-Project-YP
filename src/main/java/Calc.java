@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class Calc {
     private String[] items = {};
     private double summa = 0.0;
+    private int people = 0;
 
     void addItem(String item)
     {
@@ -52,23 +53,23 @@ public class Calc {
         }
     }
 
-    String getWordForm(double sum, String f1,  String f2,  String f5) {
+    String getWordForm(double sum, String formLike1Moneta,  String formLike2Moneti,  String formLike5Monet) {
         int N = Math.abs((int) Math.floor(sum)) % 100;
         int N1 = N % 10;
-        return N > 10 && N < 20 ? f5 : (N1 > 1 && N1 < 5 ? f2 : (N1 == 1 ? f1 : f5));
+        return N > 10 && N < 20 ? formLike5Monet : (N1 > 1 && N1 < 5 ? formLike2Moneti : (N1 == 1 ? formLike1Moneta : formLike5Monet));
     }
 
     void showResult() {
         System.out.println("Добавленные товары:");
-        for (int i=0;i<this.items.length;i++) {
-            System.out.println(" " + this.items[i]);
+        for (String item : this.items) {
+            System.out.println(" " + item);
         }
         System.out.println("--------------------");
-        double eachSumma = this.summa/Main.people;
+        double eachSumma = this.summa/this.people;
         System.out.println("С каждого гостя: " + String.format("%.2f", eachSumma) + " " + this.getWordForm(eachSumma, "рубль", "рубля", "рублей"));
     }
 
-    void parseBill() {
+    public void parseBill() {
         int i;
         while ((i = getName())!=0) {
             if (i==1) {
@@ -77,4 +78,24 @@ public class Calc {
         }
         showResult();
     }
+
+    public void getPeople() {
+        String input;
+        Scanner scanner = new Scanner(System.in);
+        while (this.people==0) {
+            int maxPeople = 6;
+            System.out.println("На сколько человек делим счет (2-"+ maxPeople +")?");
+            try {
+                input = scanner.next();
+                int peopleInt = Integer.parseInt(input);
+                if ((peopleInt>=1) && (peopleInt<= maxPeople)) {
+                    this.people = peopleInt;
+                }
+            }
+            catch (NumberFormatException e) {
+                //...
+            }
+        }
+    }
+
 }
