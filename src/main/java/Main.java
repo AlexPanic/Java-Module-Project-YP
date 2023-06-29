@@ -1,6 +1,12 @@
-
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Check check = new Check();
+        // количество гостей
+        check.setGuests();
+        // позиции в чеке
+        check.addItems();
+        // результат
+        check.showResult();
     }
+
 }
